@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Programming | Piyush's Blog]]></title>
   <link href="http://piyush-kansal.github.io/blog/categories/programming/atom.xml" rel="self"/>
   <link href="http://piyush-kansal.github.io/"/>
-  <updated>2014-04-11T08:20:35-07:00</updated>
+  <updated>2014-04-11T09:07:12-07:00</updated>
   <id>http://piyush-kansal.github.io/</id>
   <author>
     <name><![CDATA[Piyush Kansal]]></name>
@@ -18,7 +18,13 @@
     <link href="http://piyush-kansal.github.io/blog/2014/04/09/fractals-in-golang/"/>
     <updated>2014-04-09T23:16:18-07:00</updated>
     <id>http://piyush-kansal.github.io/blog/2014/04/09/fractals-in-golang</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p>I wanted to explore Fractals ever since my friend Avijit told me about them. I found them fascinating. Just one equation and you can do wonders with it. It is more fascinating to know how nature uses recursion/fractals in things like trees, leaves, corals and even broccoli !! Here are some interesting fractals I generated using Mandelbrot Set:</p>
+
+<p><img class="<a" src="href="https://github.com/piyush-kansal/fractals-in-go/blob/master/output/fractal_1000.000000_0.000000_0.000000.png">https://github.com/piyush-kansal/fractals-in-go/blob/master/output/fractal_1000.000000_0.000000_0.000000.png</a>"></p>
+
+<p><img class="<a" src="href="https://github.com/piyush-kansal/fractals-in-go/blob/master/output/fractal_100000.000000_-0.710000_-0.250000.png">https://github.com/piyush-kansal/fractals-in-go/blob/master/output/fractal_100000.000000_-0.710000_-0.250000.png</a>"></p>
+
+<p><img class="<a" src="href="https://github.com/piyush-kansal/fractals-in-go/blob/master/output/spiral_10000_0.040000_0.999900.png">https://github.com/piyush-kansal/fractals-in-go/blob/master/output/spiral_10000_0.040000_0.999900.png</a>"></p>
 ]]></content>
   </entry>
   
