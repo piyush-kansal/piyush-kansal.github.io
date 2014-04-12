@@ -4,7 +4,7 @@
 
 url: http://piyush-kansal.github.io
 title: Piyush's Blog
-subtitle: A foolish consistency is the hobgoblin of little minds, adored by little statesmen and philosophers and divines.
+subtitle: A foolish consistency is the hobgoblin of little minds, adored by little statesmen and philosophers and divines - Self-Reliance, Ralph Waldo Emerson
 author: Piyush Kansal
 simple_search: https://www.google.com/search
 description:
@@ -69,7 +69,7 @@ github_show_profile_link: true
 github_skip_forks: true
 
 # Twitter
-twitter_user:
+twitter_user: piyushkansal82
 twitter_tweet_button: true
 
 # Google +1
