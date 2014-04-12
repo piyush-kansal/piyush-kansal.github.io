@@ -4,7 +4,7 @@
   <title><![CDATA[Piyush's Blog]]></title>
   <link href="http://piyush-kansal.github.io/atom.xml" rel="self"/>
   <link href="http://piyush-kansal.github.io/"/>
-  <updated>2014-04-11T19:20:11-07:00</updated>
+  <updated>2014-04-11T23:00:41-07:00</updated>
   <id>http://piyush-kansal.github.io/</id>
   <author>
     <name><![CDATA[Piyush Kansal]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Inspiring Quotations and My Favorites]]></title>
+    <link href="http://piyush-kansal.github.io/blog/2014/04/11/inspiring-quotations-and-my-favorites/"/>
+    <updated>2014-04-11T22:31:14-07:00</updated>
+    <id>http://piyush-kansal.github.io/blog/2014/04/11/inspiring-quotations-and-my-favorites</id>
+    <content type="html"><![CDATA[<blockquote><p>A foolish consistency is the hobgoblin of little minds, adored by little statesmen and philosophers and divines.</p><footer><strong>Ralph Waldo Emerson</strong></footer></blockquote>
+
+
+
+
+<blockquote><p>To think, you have to write. If you&#8217;re thinking without writing, you only think you&#8217;re thinking.</p><footer><strong>Leslie Lamport</strong></footer></blockquote>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Fractals in GoLang]]></title>
