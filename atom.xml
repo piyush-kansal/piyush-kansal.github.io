@@ -4,7 +4,7 @@
   <title><![CDATA[Piyush's Blog]]></title>
   <link href="http://piyush-kansal.github.io/atom.xml" rel="self"/>
   <link href="http://piyush-kansal.github.io/"/>
-  <updated>2014-08-03T19:21:50-07:00</updated>
+  <updated>2014-08-03T23:27:03-07:00</updated>
   <id>http://piyush-kansal.github.io/</id>
   <author>
     <name><![CDATA[Piyush Kansal]]></name>
@@ -67,6 +67,10 @@
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
 </pre></td><td class='code'><pre><code class='c++'><span class='line'>  <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>                 <span class="c1">// a is infered to be of type int</span>
 </span><span class='line'>  <span class="kt">float</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">20.5</span><span class="p">;</span>              <span class="c1">// b is infered to be of type float</span>
 </span><span class='line'>  <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>                   <span class="c1">// c is infered to be of type int</span>
@@ -76,6 +80,10 @@
 </span><span class='line'>  <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 </span><span class='line'>  <span class="k">auto</span> <span class="n">d</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>               <span class="c1">// d is infered to be of type int</span>
 </span><span class='line'>  <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">itr</span> <span class="o">!=</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">itr</span><span class="o">++</span><span class="p">)</span> <span class="p">{...}</span>    <span class="c1">// itr is infered to be of type vector&lt;int&gt;::iterator</span>
+</span><span class='line'>  <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">itr:</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">itr</span><span class="p">;}</span>                              <span class="c1">// Another easier way to do the same, called range-based </span>
+</span><span class='line'>                                                                <span class="c1">// for statement. itr is read only here</span>
+</span><span class='line'>  <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">itr:</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">++</span><span class="n">itr</span><span class="p">;}</span>                           <span class="c1">// Another easier way to do the same, called range-based </span>
+</span><span class='line'>                                                                <span class="c1">// for statement. itr is writable here</span>
 </span><span class='line'>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -147,6 +155,21 @@
 </pre></td><td class='code'><pre><code class='c++'><span class='line'>  <span class="k">enum</span> <span class="k">class</span> <span class="nc">SPORTS</span> <span class="p">{</span><span class="n">BADMINTON</span><span class="p">,</span> <span class="n">TENNIS</span><span class="p">};</span>
 </span><span class='line'>  <span class="k">enum</span> <span class="k">class</span> <span class="nc">PERSON</span> <span class="p">{</span><span class="n">EMILY</span><span class="p">,</span> <span class="n">BOB</span><span class="p">};</span>
 </span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">SPORT</span><span class="o">::</span><span class="n">BADMINTON</span> <span class="o">==</span> <span class="n">PERSON</span><span class="o">::</span><span class="n">EMILY</span><span class="p">)</span> <span class="p">{}</span>   <span class="c1">// if condition will evaluate to false</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><h4>&ldquo;static_assert&rdquo;</h4>
+
+<p>C++11 defines a new compile time assert.</p></li>
+</ul>
+
+
+<figure class='code'><figcaption><span>New in C++11 </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'>  <span class="n">static_assert</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">,</span> <span class="s">&quot;This program cannot be run on machines not supporting integer to be 4 bytes long&quot;</span><span class="p">);</span>
 </span><span class='line'>
 </span></code></pre></td></tr></table></div></figure>
 
