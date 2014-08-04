@@ -41,6 +41,10 @@ I heard a lot of cool things about the new features and here is what I came acro
   v.push_back(2);
   auto d = v[0];               // d is infered to be of type int
   for (auto itr = v.begin(); itr != v.end(); itr++) {...}	// itr is infered to be of type vector<int>::iterator
+  for (auto itr: v) {cout << itr;}                              // Another easier way to do the same, called range-based 
+                                                                // for statement. itr is read only here
+  for (auto& itr: v) {cout << ++itr;}                           // Another easier way to do the same, called range-based 
+                                                                // for statement. itr is writable here
   {% endcodeblock %}
 
 * #### "decltype"
@@ -77,5 +81,13 @@ I heard a lot of cool things about the new features and here is what I came acro
   enum class SPORTS {BADMINTON, TENNIS};
   enum class PERSON {EMILY, BOB};
   if (SPORT::BADMINTON == PERSON::EMILY) {}   // if condition will evaluate to false
+  {% endcodeblock %}
+
+* #### "static_assert"
+
+  C++11 defines a new compile time assert.
+
+  {% codeblock New in C++11 lang:c++ %}
+  static_assert(sizeof(int) == 4, "This program cannot be run on machines not supporting integer to be 4 bytes long");
   {% endcodeblock %}
 
