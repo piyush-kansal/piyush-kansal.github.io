@@ -91,3 +91,135 @@ I heard a lot of cool things about the new features and here is what I came acro
   static_assert(sizeof(int) == 4, "This program cannot be run on machines not supporting integer to be 4 bytes long");
   {% endcodeblock %}
 
+* #### "default", "delete", "final" and "override"
+
+  All of these 4 new additions are w.r.t. to the inheritance constructs:
+
+##### "default"
+
+  To explicity tell the compiler to provide the default constructor. The only use I see is the enhanced readability.
+
+  {% codeblock New in C++11 lang:c++ %}
+  class Temp {
+     public:
+        Temp() {}            // Own implementation of the default constructor
+        Temp() = default;    // Explicitly ask compiler to provide the implementation
+  };
+  {% endcodeblock %}
+
+##### "delete"
+
+  To not to allow anyone call a function. It is definitely very useful.
+
+  {% codeblock New in C++11 lang:c++ %}
+  class Temp {
+     public:
+        Temp() {}
+        Temp(const Temp&) = delete;          // Does not allow copy construction
+        Temp& Temp(const Temp&) = delete;    // Does not allow assignment operation
+  };
+  {% endcodeblock %}
+
+##### "final"
+
+  To not to allow anyone override a virtual function or inherit from class. Looks kind of odd :)
+
+  {% codeblock New in C++11 lang:c++ %}
+  class B {
+     public:
+        virtual f() final;     // Overriding not allowed
+  };
+
+  class D {
+     public:
+        virtual f();           // Compiler error
+  };
+
+  class B2 final {};           // Inheriting not allowed
+  class D2 : public B2 {};     // Compiler error
+  {% endcodeblock %}
+
+##### "override"
+
+  To explicity tag functions we intend to override in a derived class class. Definitely useful.
+
+  {% codeblock New in C++11 lang:c++ %}
+  class B {
+     public:
+        virtual void f();
+        virtual void g();
+        void h();
+  };
+
+  class D {
+     public:
+        virtual void f(int) override;    // Compiler error
+        virtual void g() override;       // Okay
+        void h() override;               // Compiler error
+  };
+  {% endcodeblock %}
+
+## Initializer Lists
+
+  C++11 patches up the inconsistency between initializing simple data types and containers:
+
+  {% codeblock Previously in C++03 lang:c++ %}
+  int v[3] = {0, 1, 2};
+  struct PERSON {int id; string name};
+  PERSON p = {1, "EMILY"};
+  vector<int> v2[3] = {0, 1, 2};          // Not possible in C++03
+  {% endcodeblock %}
+
+  {% codeblock New in C++11 lang:c++ %}
+  vector<int> v2[3] = {0, 1, 2};          // Possible in C++11
+  {% endcodeblock %}
+
+  The way it works is that it calls the constructor std::vector<int>(std::initializer_list<int>). std::initializer_list is a new template class. So, you can add this into your container classes as well:
+
+  {% codeblock New in C++11 lang:c++ %}
+  class MyVector {
+     vector<int> v;
+
+     public:
+        MyVector() {}
+        MyVector(std::initializer_list<int>& l) {
+           for(auto i: l) v.push_back(i);
+        }
+  };
+  {% endcodeblock %}
+
+## Uniform Initialization
+
+  {% codeblock New in C++11 lang:c++ %}
+  vector<int> v(3);         // Creates a vector of size 3 with uninitialized elements
+  vector<int> v{3, 2, 1};   // Creates a vector of size 3 with elements 3, 2, 1. This is called uniform initialization
+  {% endcodeblock %}
+
+  This concept can be used during the function calls and while returning from the functions too:
+
+  {% codeblock New in C++11 lang:c++ %}
+  vector<int> myfunc(vector<int> v) {
+     return {1, 2, 3};
+  }
+
+  myfunc({3, 2, 1});
+  {% endcodeblock %}
+
+## Delegating Constructors
+
+  It is now possible to call an another constructor from the first one i.e we can chain constructors:
+
+  {% codeblock New in C++11 lang:c++ %}
+  class MyVector {
+     public:
+        MyVector() {
+           // accomplishes task A
+        }
+        MyVector(int a): MyVector() {
+           // accomplishes task A and B
+        }
+        MyVector(int a, int b): MyVector(a) {
+           // accomplishes task A, B and C
+        }
+  };
+  {% endcodeblock %}
