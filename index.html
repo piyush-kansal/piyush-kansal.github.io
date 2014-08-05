@@ -262,6 +262,243 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
+<ul>
+<li><h4>&ldquo;default&rdquo;, &ldquo;delete&rdquo;, &ldquo;final&rdquo; and &ldquo;override&rdquo;</h4>
+
+<p>All of these 4 new additions are w.r.t. to the inheritance constructs:</p></li>
+</ul>
+
+
+<h5>&ldquo;default&rdquo;</h5>
+
+<p>  To explicity tell the compiler to provide the default constructor. The only use I see is the enhanced readability.</p>
+
+<figure class='code'><figcaption><span>New in C++11 </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'>  <span class="k">class</span> <span class="nc">Temp</span> <span class="p">{</span>
+</span><span class='line'>     <span class="k">public</span><span class="o">:</span>
+</span><span class='line'>        <span class="n">Temp</span><span class="p">()</span> <span class="p">{}</span>            <span class="c1">// Own implementation of the default constructor</span>
+</span><span class='line'>        <span class="n">Temp</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>    <span class="c1">// Explicitly ask compiler to provide the implementation</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>&ldquo;delete&rdquo;</h5>
+
+<p>  To not to allow anyone call a function. It is definitely very useful.</p>
+
+<figure class='code'><figcaption><span>New in C++11 </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'>  <span class="k">class</span> <span class="nc">Temp</span> <span class="p">{</span>
+</span><span class='line'>     <span class="k">public</span><span class="o">:</span>
+</span><span class='line'>        <span class="n">Temp</span><span class="p">()</span> <span class="p">{}</span>
+</span><span class='line'>        <span class="n">Temp</span><span class="p">(</span><span class="k">const</span> <span class="n">Temp</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>          <span class="c1">// Does not allow copy construction</span>
+</span><span class='line'>        <span class="n">Temp</span><span class="o">&amp;</span> <span class="n">Temp</span><span class="p">(</span><span class="k">const</span> <span class="n">Temp</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>    <span class="c1">// Does not allow assignment operation</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>&ldquo;final&rdquo;</h5>
+
+<p>  To not to allow anyone override a virtual function or inherit from class. Looks kind of odd :)</p>
+
+<figure class='code'><figcaption><span>New in C++11 </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'>  <span class="k">class</span> <span class="nc">B</span> <span class="p">{</span>
+</span><span class='line'>     <span class="k">public</span><span class="o">:</span>
+</span><span class='line'>        <span class="k">virtual</span> <span class="n">f</span><span class="p">()</span> <span class="n">final</span><span class="p">;</span>     <span class="c1">// Overriding not allowed</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">D</span> <span class="p">{</span>
+</span><span class='line'>     <span class="k">public</span><span class="o">:</span>
+</span><span class='line'>        <span class="k">virtual</span> <span class="n">f</span><span class="p">();</span>           <span class="c1">// Compiler error</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">B2</span> <span class="n">final</span> <span class="p">{};</span>           <span class="c1">// Inheriting not allowed</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">D2</span> <span class="o">:</span> <span class="k">public</span> <span class="n">B2</span> <span class="p">{};</span>     <span class="c1">// Compiler error</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>&ldquo;override&rdquo;</h5>
+
+<p>  To explicity tag functions we intend to override in a derived class class. Definitely useful.</p>
+
+<figure class='code'><figcaption><span>New in C++11 </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'>  <span class="k">class</span> <span class="nc">B</span> <span class="p">{</span>
+</span><span class='line'>     <span class="k">public</span><span class="o">:</span>
+</span><span class='line'>        <span class="k">virtual</span> <span class="kt">void</span> <span class="n">f</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">virtual</span> <span class="kt">void</span> <span class="n">g</span><span class="p">();</span>
+</span><span class='line'>        <span class="kt">void</span> <span class="n">h</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">D</span> <span class="p">{</span>
+</span><span class='line'>     <span class="k">public</span><span class="o">:</span>
+</span><span class='line'>        <span class="k">virtual</span> <span class="kt">void</span> <span class="n">f</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">override</span><span class="p">;</span>    <span class="c1">// Compiler error</span>
+</span><span class='line'>        <span class="k">virtual</span> <span class="kt">void</span> <span class="n">g</span><span class="p">()</span> <span class="n">override</span><span class="p">;</span>       <span class="c1">// Okay</span>
+</span><span class='line'>        <span class="kt">void</span> <span class="n">h</span><span class="p">()</span> <span class="n">override</span><span class="p">;</span>               <span class="c1">// Compiler error</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Initializer Lists</h2>
+
+<p>  C++11 patches up the inconsistency between initializing simple data types and containers:</p>
+
+<figure class='code'><figcaption><span>Previously in C++03 </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'>  <span class="kt">int</span> <span class="n">v</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
+</span><span class='line'>  <span class="k">struct</span> <span class="n">PERSON</span> <span class="p">{</span><span class="kt">int</span> <span class="n">id</span><span class="p">;</span> <span class="n">string</span> <span class="n">name</span><span class="p">};</span>
+</span><span class='line'>  <span class="n">PERSON</span> <span class="n">p</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;EMILY&quot;</span><span class="p">};</span>
+</span><span class='line'>  <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>          <span class="c1">// Not possible in C++03</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>New in C++11 </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'>  <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>          <span class="c1">// Possible in C++11</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>  The way it works is that it calls the constructor std::vector<int>(std::initializer_list<int>). std::initializer_list is a new template class. So, you can add this into your container classes as well:</p>
+
+<figure class='code'><figcaption><span>New in C++11 </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'>  <span class="k">class</span> <span class="nc">MyVector</span> <span class="p">{</span>
+</span><span class='line'>     <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>     <span class="k">public</span><span class="o">:</span>
+</span><span class='line'>        <span class="n">MyVector</span><span class="p">()</span> <span class="p">{}</span>
+</span><span class='line'>        <span class="n">MyVector</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">l</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>           <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="nl">i:</span> <span class="n">l</span><span class="p">)</span> <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Uniform Initialization</h2>
+
+<figure class='code'><figcaption><span>New in C++11 </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'>  <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>         <span class="c1">// Creates a vector of size 3 with uninitialized elements</span>
+</span><span class='line'>  <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">};</span>   <span class="c1">// Creates a vector of size 3 with elements 3, 2, 1. This is called uniform initialization</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>  This concept can be used during the function calls and while returning from the functions too:</p>
+
+<figure class='code'><figcaption><span>New in C++11 </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'>  <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">myfunc</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>     <span class="k">return</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">myfunc</span><span class="p">({</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">});</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Delegating Constructors</h2>
+
+<p>  It is now possible to call an another constructor from the first one i.e we can chain constructors:</p>
+
+<figure class='code'><figcaption><span>New in C++11 </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'>  <span class="k">class</span> <span class="nc">MyVector</span> <span class="p">{</span>
+</span><span class='line'>     <span class="k">public</span><span class="o">:</span>
+</span><span class='line'>        <span class="n">MyVector</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>           <span class="c1">// accomplishes task A</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="n">MyVector</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span><span class="o">:</span> <span class="n">MyVector</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>           <span class="c1">// accomplishes task A and B</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="n">MyVector</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span><span class="o">:</span> <span class="n">MyVector</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>           <span class="c1">// accomplishes task A, B and C</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
 
 </div>
   
