@@ -4,7 +4,7 @@
   <title><![CDATA[Category: C++11 | Piyush's Blog]]></title>
   <link href="http://piyush-kansal.github.io/blog/categories/c-plus-plus-11/atom.xml" rel="self"/>
   <link href="http://piyush-kansal.github.io/"/>
-  <updated>2014-08-05T00:22:53-07:00</updated>
+  <updated>2014-08-08T00:12:30-07:00</updated>
   <id>http://piyush-kansal.github.io/</id>
   <author>
     <name><![CDATA[Piyush Kansal]]></name>
@@ -405,6 +405,46 @@
 </span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="p">};</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>Template Alias or Type Alias</h2>
+
+<p>  Just like typedef, you can create template alias or type alias (synonyms) refer to a familty of template types. Then, what is the difference between typedef and type alias. Here, it is:</p>
+
+<p>  <div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Previously in C++03 </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'>  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">MyVec</span> <span class="p">{};</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">typedef</span> <span class="n">MyVec</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">V1</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">V1</span> <span class="n">a1</span><span class="p">;</span>                                        <span class="c1">// Okay&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">typedef</span> <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">MyVec</span> <span class="n">V2</span><span class="p">;</span>     <span class="c1">// Compiler error here</span>
+</span><span class='line'>  <span class="k">typedef</span> <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="n">MyVec</span> <span class="n">V2</span><span class="p">;</span>           <span class="c1">// Compiler error here</span>
+</span><span class='line'>  <span class="c1">// V2&lt;int&gt; a2;                                // Not possible. So, typedefs cannot be templated</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>  As you can see, the limitation with the typedef is that they cannot be templated. This is where type alias comes in picture:</p>
+
+<p>  <div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>New in C++11 </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'>  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">MyVec</span> <span class="p">{};</span>
+</span><span class='line'>  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">using</span> <span class="n">V1</span> <span class="o">=</span> <span class="n">MyVec</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">V1</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v1</span><span class="p">;</span>                                   <span class="c1">// Okay</span>
+</span><span class='line'>  <span class="n">V1</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">v2</span><span class="p">;</span>                                 <span class="c1">// Okay</span>
 </span><span class='line'>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 ]]></content>
