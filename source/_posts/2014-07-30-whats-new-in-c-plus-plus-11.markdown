@@ -223,3 +223,27 @@ I heard a lot of cool things about the new features and here is what I came acro
         }
   };
   {% endcodeblock %}
+
+## Template Alias or Type Alias
+
+  Just like typedef, you can create template alias or type alias (synonyms) refer to a familty of template types. Then, what is the difference between typedef and type alias. Here, it is:
+
+  {% codeblock Previously in C++03 lang:c++ %}
+  template<class T> class MyVec {};
+
+  typedef MyVec<int> V1;
+  V1 a1;                                        // Okay
+
+  typedef template<class T> class MyVec V2;     // Compiler error here
+  typedef template<class T> MyVec V2;           // Compiler error here
+  // V2<int> a2;                                // Not possible. So, typedefs cannot be templated
+  {% endcodeblock %}
+
+  As you can see, the limitation with the typedef is that they cannot be templated. This is where type alias comes in picture:
+
+  {% codeblock New in C++11 lang:c++ %}
+  template<class T> class MyVec {};
+  template<class T> using V1 = MyVec<T>;
+  V1<int> v1;                                   // Okay
+  V1<float> v2;                                 // Okay
+  {% endcodeblock %}
